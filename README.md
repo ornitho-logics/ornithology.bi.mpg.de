@@ -63,6 +63,7 @@ This project uses the following software:
   'stringr',
   'downlit', 
   'xml2',
+  'rnaturalearth',
   'pluralize' # remotes::install_github("hrbrmstr/pluralize")
   ) |>
   sapply(require, character.only = TRUE, quietly = TRUE)

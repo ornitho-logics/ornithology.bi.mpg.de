@@ -1,0 +1,17 @@
+---
+title: "Sex differences in testosterone and hematocrit levels reflect mating system differences of two Arctic-breeding shorebird species" 
+author: Krietsch et al..
+date: "2025-November-21" # date of publication
+categories: [new publication]
+image: "../2024/KasparNuptialColourRedPhalarope2024.webp"
+lightbox: true
+fig-cap-location: margin
+bibliography: ./../../biblio/publications.bib
+csl: ./../../biblio/bib_style.csl
+---
+
+Individuals of a given species often compete for resources or mates. The outcome of this competition is related to blood plasma concentrations of hormones such as testosterone, which influences the development and expression of an individual’s secondary sexual characteristics and behaviour. An individual’s hematocrit level, which is the proportion of red blood cells, can also be related to competition, as it reflects the oxygen-carrying capacity of the blood, and is linked to an individual’s physical aerobic capacity and possibly also condition. Both testosterone and hematocrit levels typically vary considerably between individuals, for example depending on their sex or mating system. In this study, we compared testosterone and hematocrit levels in both sexes of two shorebird species: the socially polyandrous red phalarope and the polygynous pectoral sandpiper. We found that baseline testosterone concentrations were higher in males of the polygynous species compared to the polyandrous one, while the opposite pattern was observed in females. Moreover, in both species, the sex that competes more intensely for access to mates (females in the red phalarope, males in the pectoral sandpiper) had higher levels of hematocrit compared to the other sex. Overall, our study suggests that sex differences in physiological parameters reflect differences in the mating system.
+
+
+
+[@krietsch2025sex]
