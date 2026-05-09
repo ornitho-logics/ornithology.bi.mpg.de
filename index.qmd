@@ -38,29 +38,28 @@ lightbox: false
 <div class="container" >
 
 
-<div id="intro_start" class="intro w-75"> </div>  
+<div class="container globe-page">
 
+  <div class="globe-wrap">
+    <div id="Earth"></div>
+  </div>
 
+  <div id="intro_start" class="intro"></div>
 
-<div class="d-flex align-items-end" >
+  <div
+    id="dude"
+    class="d-none d-lg-block"
+    data-toggle="tooltip"
+    data-bs-html="true"
+    title="
+      Explore our field studies by pushing <i class='fas fa-circle'></i> on the Globe! <br>
+      Points are locations of {{< var N_birds >}} individuals from {{< var N_species >}} shorebird species we've tracked. 
+    "
+  >
+    <img src="./CONTENT/main/dude.webp" class="img-fluid img-right">
+  </div>
 
-<div id="dude" class="flex-shrink-0 d-none d-lg-block " data-toggle="tooltip"  data-bs-html="true"
-title= "
-Explore our field studies by pushing <i class='fas fa-circle'></i> on the Globe! <br>
-Points are locations of {{< var N_birds >}} individuals from {{< var N_species >}} shorebird species we've tracked. 
-Visit <strong> /Projects/ </strong>  for more.
-"
->
-<img src="./CONTENT/main/dude.webp"  class="img-fluid img-right"> 
-<hr>
 </div>
-
-<div id= "Earth" class="flex-shrink-0" > </div>
-
-</div>
-
-
-
 
 </div>
 

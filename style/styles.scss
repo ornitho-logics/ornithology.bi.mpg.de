@@ -19,10 +19,10 @@ $modal-backdrop-opacity: 0;
 body {
   font-family: 'Syne', sans-serif;
   overflow-x: hidden;
-  background-image: url(/CONTENT/main/bgbird.webp) ;
+  background-image: url("/CONTENT/main/bgbird.webp") ;
   background-repeat: no-repeat;
   background-size: 5%;
-  background-position: right 20% top 30%;
+  background-position: right 10% top 20%;
 }
 
 
@@ -62,8 +62,6 @@ body {
   
 }
 
-
-
 .card img{
   width: 60px;           
   height: 60px;
@@ -77,39 +75,6 @@ body {
   background-color: rgba(40, 48, 58, 1); 
   z-index: 10;
 }
-// index.html
-#intro_start {
-  column-count: 1; 
-  font-family:Syne;
-}
-.intro{
-  font-size: calc(1.25rem + 0.25vw) !important;
-  overflow-y: auto; 
-  position: relative;
-  z-index: 2;
-  margin-bottom:-15%;
-  text-wrap: balance;
-  // text-indent: 30px;
-  column-count: 2;
-  column-width: 500px;
-} 
-
-#Earth{
-  position: relative;
-  z-index: 1;
-  cursor: move;
-}
-#dude{
-  position: relative;
-  z-index: 2;
-  margin-right: -50%; 
-  transform: translateY(-20%);
-
-}
-#dude:hover {
-  cursor: help;
-}
-
 
 .fa-circle {
   color: #e66119;
@@ -119,4 +84,150 @@ body {
 .fa-file-pdf {
   color: #e66119 !important;
 
+}
+
+
+
+
+// index.html
+.globe-wrap {
+  float: right;
+
+  width: clamp(720px, 68vw, 1050px);
+  height: clamp(720px, 68vw, 1050px);
+
+  margin-left: 1rem;
+  margin-bottom: 0.5rem;
+  margin-right: calc((80vw - 100%) / -2 - 2rem);
+
+  shape-outside: ellipse(42% 46% at 52% 50%);
+  shape-margin: 0.1rem;
+
+  position: relative;
+}
+
+#Earth {
+  width: 100%;
+  height: 100%;
+  cursor: move;
+}
+
+#Earth canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+@media (max-width: 991px) {
+  .globe-wrap {
+    float: none;
+
+    width: min(96vw, 720px);
+    height: min(96vw, 720px);
+
+    margin: 0 auto 1.5rem auto;
+    shape-outside: none;
+  }
+}
+
+.globe-page {
+  position: relative;
+  overflow: visible;
+  min-height: 780px;
+}
+
+
+
+
+
+// intro
+#intro_start {
+  font-family: Syne, sans-serif;
+}
+
+.intro {
+  font-size: clamp(1rem, 1.25vw, 1.25rem) !important;
+  line-height: 1.45;
+
+  overflow: visible;
+  column-count: unset;
+  column-width: unset;
+  margin-bottom: 0;
+  max-width: none;
+}
+
+
+
+.intro p {
+  max-width: 68ch;
+}
+
+.intro p:first-child {
+  font-size: clamp(1.1rem, 1.45vw, 1.45rem);
+  line-height: 1.35;
+}
+
+
+// dude 
+@media (max-width: 991px) {
+  #dude {
+    display: none !important;
+  }
+}
+
+#dude {
+  position: absolute;
+
+  left: 0.25rem;
+  top: 20rem;
+
+  width: clamp(340px, 36vw, 620px);
+
+  z-index: 4;
+  margin: 0;
+
+  transform: rotate(-1.5deg);
+  transform-origin: bottom center;
+
+  filter: drop-shadow(0 1.2rem 1.6rem rgba(0, 0, 0, 0.22));
+}
+
+#dude img {
+  display: block;
+  width: 100%;
+  height: auto;
+
+  position: relative;
+  z-index: 2;
+
+  transform: translateY(0.75rem);
+  transform-origin: bottom center;
+}
+
+#dude::after {
+  content: "";
+  position: absolute;
+
+  left: 16%;
+  bottom: 1.5%;
+
+  width: 62%;
+  height: 9%;
+
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.34) 0%,
+    rgba(0, 0, 0, 0.2) 42%,
+    rgba(0, 0, 0, 0.07) 68%,
+    rgba(0, 0, 0, 0) 100%
+  );
+
+  transform: translateY(95%) scaleX(1.25);
+  filter: blur(5px);
+
+  z-index: 1;
+  pointer-events: none;
+}
+
+#dude:hover {
+  cursor: help;
 }

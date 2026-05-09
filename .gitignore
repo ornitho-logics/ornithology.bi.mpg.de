@@ -19,3 +19,4 @@ _extensions/
 _site/
 
 **/*.quarto_ipynb
+.positai
