@@ -4,7 +4,7 @@
 const globe_path = "./CONTENT/main/basemap.png";
 const sites_path = "./CONTENT/data/study_sites.csv";
 
-const map_center = { lat: 40, lng: -65, altitude: 2 };
+const map_center = { lat: 40, lng: -65, altitude: 1.75 };
 
 const study_sites = ([site, species, lat, lng, url, size, color]) => ({
   site,
@@ -17,17 +17,35 @@ const study_sites = ([site, species, lat, lng, url, size, color]) => ({
 });
 
 const events = ["click", "touchstart", "mousedown", "wheel"];
-const ringsCols = ["#B38CB4", "#B7918C", "#C5A48A"];
-const dotColor = "#e66119";
 
+const ringsCols = [
+  "rgba(179, 140, 180, 0.55)",
+  "rgba(183, 145, 140, 0.45)",
+  "rgba(197, 164, 138, 0.35)"
+];
+
+const dotColor = "rgba(230, 97, 25, 0.9)";
 const earthEl = document.getElementById("Earth");
 
-const world = Globe()(earthEl)
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const world = Globe({
+  rendererConfig: {
+    alpha: true,
+    antialias: true,
+    powerPreference: "high-performance"
+  }
+})(earthEl)
   .globeImageUrl(globe_path)
-  .backgroundColor("#FFFFFF00")
-  .showGraticules(true)
+  .backgroundColor("rgba(0, 0, 0, 0)")
+
+  // cleaner, less technical look
+  .showGraticules(false)
+
+  // softer atmosphere
   .showAtmosphere(true)
-  .atmosphereAltitude(0.3);
+  .atmosphereColor("#9cc0b7")
+  .atmosphereAltitude(0.18);
 
 function resizeGlobe() {
   const { width, height } = earthEl.getBoundingClientRect();
@@ -51,10 +69,15 @@ new ResizeObserver(() => {
 
 window.addEventListener("resize", resizeGlobe);
 
-world.controls().autoRotate = true;
-world.controls().autoRotateSpeed = 0.6;
+world.controls().autoRotate = !prefersReducedMotion;
+world.controls().autoRotateSpeed = 0.45;
 world.controls().maxDistance = 450;
-world.controls().minDistance = 100;
+world.controls().minDistance = 90;
+
+world.controls().enableDamping = true;
+world.controls().dampingFactor = 0.06;
+world.controls().rotateSpeed = 0.45;
+world.controls().zoomSpeed = 0.55;
 
 for (const event of events) {
   window.addEventListener(event, () => {
@@ -69,19 +92,25 @@ Promise.all([
 ]).then(([study_sites]) => {
   world
     .ringsData(study_sites)
-    .ringMaxRadius(1.5)
-    .ringRepeatPeriod(700)
-    .ringPropagationSpeed(0.8)
+    .ringMaxRadius(1.8)
+    .ringRepeatPeriod(1200)
+    .ringPropagationSpeed(0.45)
     .ringColor(() => ringsCols)
 
     .labelsData(study_sites)
     .labelColor(() => dotColor)
     .labelText(d => d.site)
-    .labelResolution(10)
-    .labelSize(0.2)
-    .labelDotRadius(1.5)
-    .labelRotation(10)
-    .labelsTransitionDuration(0)
+    .labelLabel(d => `<strong>${d.site}</strong><br>${d.species}`)
+    .labelResolution(4)
+    .labelSize(0.15)
+    .labelDotRadius(d => d.size ? Math.max(+d.size, 1.1) : 1.1)
+    .labelAltitude(0.012)
+    .labelRotation(0)
+    .labelsTransitionDuration(250)
+
+    .onLabelHover(d => {
+      earthEl.style.cursor = d ? "pointer" : "move";
+    })
 
     .onLabelClick(d => {
       $.get(d.url + "about.md", about_text => {

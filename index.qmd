@@ -59,6 +59,8 @@ lightbox: false
     <img src="./CONTENT/main/dude.webp" class="img-fluid img-right">
   </div>
 
+
+
 </div>
 
 </div>
@@ -71,14 +73,22 @@ lightbox: false
 ```{=HTML} 
 
 
-<script> 
-// init bs tooltip  
-$(document).ready(function(){
-  $('[data-toggle="tooltip"]').tooltip();   
+<script>
+$(document).ready(function() {
+  $('#dude').tooltip({
+    html: true,
+    placement: 'top',
+    trigger: 'hover focus',
+    container: 'body',
+    template: `
+      <div class="tooltip dude-tooltip" role="tooltip">
+        <div class="arrow"></div>
+        <div class="tooltip-inner"></div>
+      </div>
+    `
+  });
 });
-
 </script>
-
 
 <script>
 
