@@ -6,17 +6,17 @@ lightbox: false
 <!-- Scripts-->
 ```{=HTML} 
 
-<script src="./js/jquery.js"></script>
-<script src="./js/d3js-dvs.js"></script>
-<script src="./js/index-array-by.js"></script>
+<script src="./js/jquery.js?v=2026-01-09"></script>
+<script src="./js/d3js-dvs.js?v=2026-01-09"></script>
+<script src="./js/index-array-by.js?v=2026-01-09"></script>
 
 
-<script src="./js/globe.gl.js"></script>
-<script type="module" src="./js/my_globe.gl.js">  </script>
+<script src="./js/globe.gl.js?v=2026-01-09"></script>
+<script type="module" src="./js/my_globe.gl.js?v=2026-01-09">  </script>
 
 <!-- bootbox modals for Globe -->
-<script src="./js/bootbox.js"></script>
-<script src="./js/marked.js"></script>
+<script src="./js/bootbox.js?v=2026-01-09"></script>
+<script src="./js/marked.js?v=2026-01-09"></script>
 ```
 
 <!-- content: globe, dude, text -->
