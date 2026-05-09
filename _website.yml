@@ -5,38 +5,37 @@ website:
   back-to-top-navigation: true
 
   page-footer:
-    center: 
-      - text: "{{< fa regular copyright >}} 2024 Dept. of Ornithology"
-        href: http://ornithology.bi.mpg.de/
+    center:
+    - text: "{{< fa regular copyright >}} 2024 Dept. of Ornithology"
+      href: http://ornithology.bi.mpg.de/
     right:
-      - text: "{{< fa at >}} admin"
-        href: mailto:Mihai.Valcu@bi.mpg.de
+    - text: "{{< fa at >}} admin"
+      href: mailto:Mihai.Valcu@bi.mpg.de
 
   navbar:
     pinned: true
     logo: /logo/logo.svg
     right:
-      - text: "{{< fa house-user >}} Home"
-        href: index.qmd
+    - text: "{{< fa house-user >}} Home"
+      href: index.qmd
 
-      - text: "<strong><i class='fas fa-rss' style='color: #EC6127;'></i> News </strong>"
-        href: news.qmd
+    - text: "<strong><i class='fas fa-rss' style='color: #EC6127;'></i> News </strong>"
+      href: news.qmd
 
-      - text: "{{< fa solid globe >}} Projects"
-        href: projects.qmd
+    - text: "{{< fa solid globe >}} Projects"
+      href: projects.qmd
 
-      - text: "{{< fa solid binoculars >}} Field work"
-        href: CONTENT/field_work/index.qmd
+    - text: "{{< fa solid binoculars >}} Field work"
+      href: CONTENT/field_work/index.qmd
 
-      - text: "{{< fa solid book >}} Publications"
-        href: CONTENT/publications/index.qmd
+    - text: "{{< fa solid book >}} Publications"
+      href: CONTENT/publications/index.qmd
 
-      - text: "{{< fa people-group >}} Team"
-        href: CONTENT/team/index.qmd
+    - text: "{{< fa people-group >}} Team"
+      href: CONTENT/team/index.qmd
 
-      - text: "Join Us!"
-        href: CONTENT/positions/open_position.qmd
+    - text: "Join Us!"
+      href: CONTENT/positions/open_position.qmd
 
-
-      - text: "{{< fa brands github>}} "
-        href: https://github.com/mpio-be/
+    - text: "{{< fa brands github>}} "
+      href: https://github.com/ornitho-logics/
