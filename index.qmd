@@ -19,26 +19,72 @@ lightbox: false
 <script src="./js/marked.js?v=2026-01-09"></script>
 ```
 
+<script>
+function rectsOverlap(a, b, pad = 8) {
+  return !(
+    a.right < b.left + pad ||
+    a.left > b.right - pad ||
+    a.bottom < b.top + pad ||
+    a.top > b.bottom - pad
+  );
+}
+
+function updateMpcbcLogoText() {
+  const logo = document.querySelector(".mpcbc-container");
+  const intro = document.querySelector("#intro_start");
+
+  if (!logo || !intro) return;
+
+  const logoText = logo.querySelector(".navbar-title");
+  if (!logoText) return;
+
+  const overlaps = rectsOverlap(
+    logoText.getBoundingClientRect(),
+    intro.getBoundingClientRect(),
+    12
+  );
+
+  logo.classList.toggle("logo-text-hidden", overlaps);
+}
+
+window.addEventListener("resize", updateMpcbcLogoText);
+window.addEventListener("scroll", updateMpcbcLogoText);
+window.addEventListener("load", updateMpcbcLogoText);
+
+new ResizeObserver(updateMpcbcLogoText).observe(document.body);
+
+const intro = document.querySelector("#intro_start");
+if (intro) {
+  new MutationObserver(updateMpcbcLogoText).observe(intro, {
+    childList: true,
+    subtree: true,
+    characterData: true
+  });
+}
+</script>
+
+
+
+
 <!-- content: globe, dude, text -->
 ```{=HTML} 
 
 <div class="container-fluid mpcbc-container">
-  <div class="d-flex align-items-center ">
-    <img src="./logo/MPCBC.svg"  class="navbar-logo">
-      <a href="https://www.uct.bi.mpg.de" 
-      class="navbar-title text-decoration-none"
-      target="_blank">
-      MPUCT Centre for Behaviour and Coevolution
+  <div class="d-flex align-items-center">
+    <img src="./logo/MPCBC.svg" class="navbar-logo">
+    <a href="https://www.uct.bi.mpg.de"
+       class="navbar-title text-decoration-none"
+       target="_blank">
+      MPUCT Centre for<br>Behaviour and <br> Coevolution
     </a>
   </div>
 </div>
 
 
-
 <div class="container" >
 
 
-<div class="container globe-page">
+<div class="container-fluid globe-page">
 
   <div class="globe-wrap">
     <div id="Earth"></div>
@@ -95,6 +141,7 @@ $(document).ready(function() {
 $.get('/CONTENT/main/intro_start.md', function(txt) {
     const htmlContent = marked.parse(txt);
     $('#intro_start').html(htmlContent);
+    updateMpcbcLogoText();
 });
 
 </script>
@@ -153,19 +200,6 @@ $(document).on('click', '.show-read-more', function(e) {
 })
 
 </script>
-
-<!-- <script>
-
-$(document).ready(function(){
-    $(".nav-footer").remove();
-});
-
-</script>   -->
-
-
-
-
-
 
 
 
