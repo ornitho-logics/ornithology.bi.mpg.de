@@ -19,6 +19,7 @@ lightbox: false
 <script src="./js/marked.js?v=2026-01-10"></script>
 ```
 
+
 <script>
 function rectsOverlap(a, b, pad = 8) {
   return !(
@@ -92,18 +93,19 @@ if (intro) {
 
   <div id="intro_start" class="intro"></div>
 
-  <div
-    id="dude"
-    class="d-none d-lg-block"
+<div id="dude" class="d-none d-lg-block">
+  <img
+    id="dude-img"
+    src="./CONTENT/main/dude.webp"
+    class="img-fluid img-right"
     data-toggle="tooltip"
     data-bs-html="true"
     title="
       Explore our field studies by pushing <i class='fas fa-circle'></i> on the Globe! <br>
-      Points are locations of {{< var N_birds >}} individuals from {{< var N_species >}} shorebird species we've tracked. 
+      Points are locations of {{< var N_birds >}} individuals from {{< var N_species >}} shorebird species we've tracked.
     "
   >
-    <img src="./CONTENT/main/dude.webp" class="img-fluid img-right">
-  </div>
+</div>
 
 
 
@@ -121,7 +123,7 @@ if (intro) {
 
 <script>
 $(document).ready(function() {
-  $('#dude').tooltip({
+  $('#dude-img').tooltip({
     html: true,
     placement: 'top',
     trigger: 'hover focus',
@@ -146,58 +148,30 @@ $.get('/CONTENT/main/intro_start.md', function(txt) {
 
 </script>
 
-<!-- <script>
-// let the dude talk
-$(document).ready(function() {
 
-    setTimeout(function() {
-      $("#dude").tooltip('show');
-    }, 2000); 
-    setTimeout(function() {
-    
-    $('#dude').tooltip('hide');
-    }, 8000);
-
-  });
-
-</script> -->
-
-
+<!-- intro text as modal -->
+ 
 <script>
-// intro text as modal
-$(document).on('click', '.show-read-more', function(e) {
+$(document).on('click', 'a.show-read-more', function(e) {
+  e.preventDefault();
 
-  $.get("/CONTENT/main/intro.md", function (intro_text) {
-
+  $.get('/CONTENT/main/intro.md', function(introText) {
     bootbox.alert({
-      animate       : false,
-      scrollable    : true,
-      size          : "xl",
+      animate: false,
+      scrollable: true,
+      size: 'xl',
       centerVertical: true,
-      message       : marked.parse(intro_text),
-      backdrop      : true,
-      closeButton   : true, 
-      
-      onShow : function(e) {
-        $('#dude').tooltip('hide');
+      message: marked.parse(introText),
+      backdrop: true,
+      closeButton: true,
+
+      onShow: function() {
         $(this).find('.modal-footer').remove();
-        $('#intro_start').hide();
-        $('#dude').css('opacity', '0.05');
-        $('#Earth').css('opacity', '0.05');
-      }, 
-
-      onHide : function(e) {
-        $('#intro_start').show();
-        $('#dude').css('opacity', '1');
-        $('#Earth').css('opacity', '1');
-      }, 
-
-
-
-
+      }
     });
   });
-})
+});
+
 
 </script>
 
