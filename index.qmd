@@ -14,55 +14,10 @@ lightbox: false
 <script src="./js/globe.gl.js?v=2026-01-10"></script>
 <script type="module" src="./js/my_globe.gl.js?v=2026-01-10">  </script>
 
-<!-- bootbox modals for Globe -->
 <script src="./js/bootbox.js?v=2026-01-10"></script>
 <script src="./js/marked.js?v=2026-01-10"></script>
 ```
 
-
-<script>
-function rectsOverlap(a, b, pad = 8) {
-  return !(
-    a.right < b.left + pad ||
-    a.left > b.right - pad ||
-    a.bottom < b.top + pad ||
-    a.top > b.bottom - pad
-  );
-}
-
-function updateMpcbcLogoText() {
-  const logo = document.querySelector(".mpcbc-container");
-  const intro = document.querySelector("#intro_start");
-
-  if (!logo || !intro) return;
-
-  const logoText = logo.querySelector(".navbar-title");
-  if (!logoText) return;
-
-  const overlaps = rectsOverlap(
-    logoText.getBoundingClientRect(),
-    intro.getBoundingClientRect(),
-    12
-  );
-
-  logo.classList.toggle("logo-text-hidden", overlaps);
-}
-
-window.addEventListener("resize", updateMpcbcLogoText);
-window.addEventListener("scroll", updateMpcbcLogoText);
-window.addEventListener("load", updateMpcbcLogoText);
-
-new ResizeObserver(updateMpcbcLogoText).observe(document.body);
-
-const intro = document.querySelector("#intro_start");
-if (intro) {
-  new MutationObserver(updateMpcbcLogoText).observe(intro, {
-    childList: true,
-    subtree: true,
-    characterData: true
-  });
-}
-</script>
 
 
 
@@ -76,7 +31,7 @@ if (intro) {
     <a href="https://www.uct.bi.mpg.de"
        class="navbar-title text-decoration-none"
        target="_blank">
-      MPUCT Centre for<br>Behaviour and <br> Coevolution
+      MPUCT Centre for Behaviour and Coevolution
     </a>
   </div>
 </div>
@@ -143,7 +98,7 @@ $(document).ready(function() {
 $.get('/CONTENT/main/intro_start.md', function(txt) {
     const htmlContent = marked.parse(txt);
     $('#intro_start').html(htmlContent);
-    updateMpcbcLogoText();
+    
 });
 
 </script>
