@@ -6,16 +6,16 @@ lightbox: false
 <!-- Scripts-->
 ```{=HTML} 
 
-<script src="./js/jquery.js?v=2026-01-10"></script>
-<script src="./js/d3js-dvs.js?v=2026-01-10"></script>
-<script src="./js/index-array-by.js?v=2026-01-10"></script>
+<script src="./js/jquery.js?v=2026-01-11"></script>
+<script src="./js/d3js-dvs.js?v=2026-01-11"></script>
+<script src="./js/index-array-by.js?v=2026-01-11"></script>
 
 
-<script src="./js/globe.gl.js?v=2026-01-10"></script>
-<script type="module" src="./js/my_globe.gl.js?v=2026-01-10">  </script>
+<script src="./js/globe.gl.js?v=2026-01-11"></script>
+<script type="module" src="./js/my_globe.gl.js?v=2026-01-11">  </script>
 
-<script src="./js/bootbox.js?v=2026-01-10"></script>
-<script src="./js/marked.js?v=2026-01-10"></script>
+<script src="./js/bootbox.js?v=2026-01-11"></script>
+<script src="./js/marked.js?v=2026-01-11"></script>
 ```
 
 
