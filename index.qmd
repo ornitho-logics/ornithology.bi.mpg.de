@@ -107,10 +107,24 @@ $.get('/CONTENT/main/intro_start.md', function(txt) {
 <!-- intro text as modal -->
  
 <script>
-$(document).on('click', 'a.show-read-more', function(e) {
-  e.preventDefault();
 
-  $.get('/CONTENT/main/intro.md', function(introText) {
+$.get('./CONTENT/main/intro_start.md', function(txt) {
+  const readMore = `
+    <button type="button" class="show-read-more read-more-inline" aria-label="Read more">
+      <i class="fa-solid fa-ellipsis" aria-hidden="true"></i>
+    </button>
+  `;
+
+  const htmlContent = marked.parse(txt).replace('{{read-more}}', readMore);
+  $('#intro_start').html(htmlContent);
+});
+
+
+$(document).on('click', '#intro_start .show-read-more', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+
+  $.get('./CONTENT/main/intro.md', function(introText) {
     bootbox.alert({
       animate: false,
       scrollable: true,
@@ -119,7 +133,6 @@ $(document).on('click', 'a.show-read-more', function(e) {
       message: marked.parse(introText),
       backdrop: true,
       closeButton: true,
-
       onShow: function() {
         $(this).find('.modal-footer').remove();
       }
