@@ -51,7 +51,7 @@ lightbox: false
 <div id="dude" class="d-none d-lg-block">
   <img
     id="dude-img"
-    src="./CONTENT/main/dude.webp"
+    src="./CONTENT/main/dutchdude.webp"
     class="img-fluid img-right"
     data-toggle="tooltip"
     data-bs-html="true"
