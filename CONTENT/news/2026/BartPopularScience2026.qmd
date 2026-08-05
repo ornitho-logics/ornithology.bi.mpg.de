@@ -1,0 +1,14 @@
+---
+title: "Do animals really mate for life?" 
+author: Carol Gilsenan
+date: "2026-Jul-08" # date of publication
+categories: [press]
+image: "BartPopularScience2026.webp"
+lightbox: true
+fig-cap-location: margin
+
+---
+
+Bart was recently interviewed by Popular Science magazine about long-term partnerships in birds. Find out what he had to say on the topic here[https://www.popsci.com/science/do-animals-mate-for-life/].
+
+![A dowitcher in Utqiagvik (Barrow), Alaska. Dowitchers are faithful neither to their former mate nor to their nesting site from the previous breeding season. Photo: Kaspar Delhey.](BartPopularScience2026.webp){width=40%}
