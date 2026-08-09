@@ -48,7 +48,7 @@ lightbox: false
 
   <div id="intro_start" class="intro"></div>
 
-<div id="dude" class="d-none d-lg-block">
+<!-- <div id="dude" class="d-none d-lg-block">
   <img
     id="dude-img"
     src="./CONTENT/main/dutchdude.webp"
@@ -60,7 +60,7 @@ lightbox: false
       Points are locations of {{< var N_birds >}} individuals from {{< var N_species >}} shorebird species we've tracked.
     "
   >
-</div>
+</div> -->
 
 
 
