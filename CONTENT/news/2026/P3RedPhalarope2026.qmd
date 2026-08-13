@@ -1,0 +1,17 @@
+---
+title: "Factors associated with breeding site fidelity in the sex-role reversed red phalarope" 
+author: Santema et al.
+date: "2026-Jul-28" # date of publication
+categories: [new publication]
+image: "P3RedPhalarope2026.webp"
+lightbox: true
+fig-cap-location: margin
+bibliography: ./../../biblio/publications.bib
+csl: ./../../biblio/bib_style.csl
+---
+
+When birds breed in multiple years, they can either return to their former breeding site or disperse to a new area. The degree of breeding site fidelity often differs between the sexes in relation to the mating system of a species. However, most research has focused on species with conventional sex roles. We monitored local return rates in an Arctic-breeding population of the sex-role reversed red phalarope. Breeding site fidelity was much higher in males than in females, consistent with predictions about site fidelity in species with a female-access polyandrous mating system. We also found that site fidelity is associated with local breeding performance, even in a species that shows a reversal of typical sex-roles, where individuals do not defend a territory and breed in an environment that is highly unpredictable between years. The findings of our study are published in the latest issue of *Behavioral Ecology*. 
+
+[@santema2026factors]
+
+![Photo: John Wright](P3RedPhalarope2026.webp){width=40%}
