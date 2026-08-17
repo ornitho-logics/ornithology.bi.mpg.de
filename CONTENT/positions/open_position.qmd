@@ -2,7 +2,7 @@
 ---
 title: "Want to join us?"
 date: today
-categories: [new position]
+categories: [open call]
 image: ./../main/ico.png
 ---
 
