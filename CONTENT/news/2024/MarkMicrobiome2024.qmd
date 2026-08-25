@@ -12,6 +12,6 @@ csl: ./../../biblio/bib_style.csl
 
 All vertebrates, including birds, host a diverse community of microorganisms. This community, along with its associated genes and metabolite by-products, is known as the microbiome. Many studies suggest that the microbiome provides key immunological and metabolic services that impact host health, behaviour and fitness. Most microbiomes also seem highly dynamic, changing at different temporal scales, from across seasons to within days or even hours. These observations have led to the prevailing hypothesis that a dynamic microbiome may facilitate hosts to adapt to novel environments. In this opinion piece, we first note that there is a paucity of longitudinal studies in natural populations, which limits our ability to assess microbiome dynamism and its impact on host fitness. Second, we emphasize that microbial communities need to be kept “in check” by the host, because microorganisms are not inherently beneficial. The main mechanism at the host’s disposal is its immune system, which is a costly trait. Given that the host has a finite amount of resources to allocate to reproduction and self-maintenance, fitness trade-offs seem inevitable. We argue that studies that consider trade-offs between investment in host control mechanisms and in other ﬁtness-related traits are needed to predict and explain variation along the microbiome stability–dynamism axis.
 
-[@gillingham2024costs]
+[@gillingham2025costs]
 
 ![Photo adapted from Figure 2 in the publication](MarkMicrobiome2024.webp){width=40%}
