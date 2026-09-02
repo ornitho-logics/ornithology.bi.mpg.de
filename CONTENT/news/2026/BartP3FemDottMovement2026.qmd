@@ -13,6 +13,6 @@ In bird species in which only one sex performs offspring care, the non-caring se
 
 To read a press release issued by MPI-BI on our study, click [here](https://www.bi.mpg.de/news/2026-09-kempenaers).
 
-[@{10.1098/rspb.2026.1110}]
+[@(10.1098/rspb.2026.1110)]
 
 ![Photo: Terje Lislevand](BartP3FemDottMovement2026.webp){width=40%}
