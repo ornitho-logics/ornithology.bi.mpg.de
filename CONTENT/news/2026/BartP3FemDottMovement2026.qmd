@@ -1,0 +1,18 @@
+---
+title: "Females of a socially polyandrous, sex-role reversed shorebird visit multiple breeding sites within a single season" 
+author: Kempenaers et al.
+date: "2026-Sept-02" # date of publication
+categories: [new publication]
+image: "BartP3FemDottMovement2026.webp"
+lightbox: true
+fig-cap-location: margin
+bibliography: ./../../biblio/publications.bib
+csl: ./../../biblio/bib_style.csl
+---
+In bird species in which only one sex performs offspring care, the non-caring sex can increase reproductive success by pursuing mating opportunities throughout the breeding season. Individuals are thereby not restricted to a single location, but may search for mating opportunities throughout part of their breeding range. Large-scale breeding site sampling has been demonstrated in males of socially polygynous species, but very little is known about the movements of females of polyandrous species. We tracked 21 females of the polyandrous, sex-role reversed Eurasian dotterel during the breeding season. Our findings are published in the latest issue of Proceedings B, and our study also made the [front cover](https://royalsocietypublishing.org/rspb/issue/293/2077).
+
+To read a press release issued by MPI-BI on our study, click [here](https://www.bi.mpg.de/news/2026-09-kempenaers).
+
+[@(10.1098/rspb.2026.1110)]
+
+![Photo: Terje Lislevand](BartP3FemDottMovement2026.webp){width=40%}
