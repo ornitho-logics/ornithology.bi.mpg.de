@@ -47,8 +47,8 @@ lightbox: false
   </div>
 
   <div id="intro_start" class="intro"></div>
-
-<!-- <div id="dude" class="d-none d-lg-block">
+<!--
+<div id="dude" class="d-none d-lg-block">
   <img
     id="dude-img"
     src="./CONTENT/main/dutchdude.webp"
