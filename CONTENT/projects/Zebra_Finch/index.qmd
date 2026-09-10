@@ -18,7 +18,7 @@ To study mate choice, we used a range of different approaches. Our studies showe
 
 ![A successful copulation of male ‘light-blue’ with female ‘light-blue’ on the courtship perch.](Fig2.webp)
 
-An alternative approach we used to study the process of pair formation was to equip all birds with small backpacks carrying a QR-code. This allowed us to continuously locate and track all individuals within a communal breeding aviary. In this setup, the emergence of pair bonds can be seen as a drastic drop in between-individual average distance for a particular male-female pair, that is, pair members increasingly were observed in close proximity of one another [@@wangMachineLearningReveals2022].
+An alternative approach we used to study the process of pair formation was to equip all birds with small backpacks carrying a QR-code. This allowed us to continuously locate and track all individuals within a communal breeding aviary. In this setup, the emergence of pair bonds can be seen as a drastic drop in between-individual average distance for a particular male-female pair, that is, pair members increasingly were observed in close proximity of one another [@wangMachineLearningReveals2022].
 
 ![A male zebra finch carrying a backpack fitted with a QR-code for automated tracking.](Fig3.webp)
 
