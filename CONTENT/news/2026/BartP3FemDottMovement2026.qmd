@@ -11,7 +11,7 @@ csl: ./../../biblio/bib_style.csl
 ---
 In bird species in which only one sex performs offspring care, the non-caring sex can increase reproductive success by pursuing mating opportunities throughout the breeding season. Individuals are thereby not restricted to a single location, but may search for mating opportunities throughout part of their breeding range. Large-scale breeding site sampling has been demonstrated in males of socially polygynous species, but very little is known about the movements of females of polyandrous species. We tracked 21 females of the polyandrous, sex-role reversed Eurasian dotterel during the breeding season. Our findings are published in the latest issue of Proceedings B, and our study also made the [front cover](https://royalsocietypublishing.org/rspb/issue/293/2077).
 
-To read a press release issued by MPI-BI on our study, click [here](https://www.bi.mpg.de/news/2026-09-kempenaers).
+To read a press release issued by MPI-BI on our study, click [here](https://www.bi.mpg.de/news/2026-09-kempenaers) and to read a recent WaderTales blog about the paper, click [here](https://wadertales.wordpress.com/2026/09/15/breeding-on-the-move/).
 
 [@10.1098/rspb.2026.1110]
 
