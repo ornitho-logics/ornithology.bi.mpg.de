@@ -35,7 +35,7 @@ We discovered that many blue tits leave the study site after breeding and come b
 
 # Other aspects of blue tit biology
 
-The continuous nest visit data allowed us to address many other aspects of blue tit behaviour. For instance, we found that shortly before and during the egg-laying period, blue tits regularly visit each other’s nestboxes and these visits predict extra-pair paternity [@schlichtMaleExtraterritorialBehavior2015]. We also investigated the female’s incubation behaviour and the male’s courtship feeding during this period [@bambiniPatternsFemaleNest2019], and examined the factors underlying variation in provisioning behaviour of parents during the nestling period (Santema et al. in prep). 
+The continuous nest visit data allowed us to address many other aspects of blue tit behaviour. For instance, we found that shortly before and during the egg-laying period, blue tits regularly visit each other’s nestboxes and these visits predict extra-pair paternity [@schlichtMaleExtraterritorialBehavior2015]. We also investigated the female’s incubation behaviour and the male’s courtship feeding during this period [@bambini2019patterns], and examined the factors underlying variation in provisioning behaviour of parents during the nestling period (Santema et al. in prep).
 
 In some years, we also PIT-tagged nestlings to “observe” the exact moment of nest departure (fledging). We learned that nestlings sired by extra-pair males fledge earlier [@schlichtMaleExtrapairNestlings2012] and that young blue tits do not like to fledge alone, so they adjust their fledging time to that of their siblings [@santemaExperimentalEvidenceThat2021]. 
 
