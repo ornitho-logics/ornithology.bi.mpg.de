@@ -214,6 +214,22 @@ body:has(.globe-page) #quarto-content {
     contrast(1.04);
 }
 
+// Decorative homepage intro. It sits above the globe but below readable content,
+// navigation, and modal dialogs, and never participates in pointer hit testing.
+.homepage-flock-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  pointer-events: none;
+  user-select: none;
+  overflow: hidden;
+}
+
 @media (max-width: 991px) {
   .globe-wrap {
     float: none;

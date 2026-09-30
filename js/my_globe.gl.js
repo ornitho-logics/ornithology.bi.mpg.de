@@ -1,6 +1,8 @@
 // https://threejs.org/docs/#examples/en/controls/OrbitControls
 // https://github.com/vasturiano/globe.gl/issues/8
 
+import { FLOCK_CONFIG, startFlockIntro } from "./flock.js?v=2026-09-30";
+
 const globe_path = "./CONTENT/main/basemap.png";
 const sites_path = "./CONTENT/data/study_sites.csv";
 
@@ -27,14 +29,105 @@ const ringsCols = [
 const dotColor = "rgba(230, 97, 25, 0.9)";
 const earthEl = document.getElementById("Earth");
 
-const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+const initialReducedMotion = motionQuery.matches;
+let reducedMotion = initialReducedMotion;
+let globeReady = false;
+let flockPassed = initialReducedMotion;
+let flockCancelled = false;
+let hasUserInteracted = false;
+let rotationSuppressed = initialReducedMotion;
+let rotationStarted = false;
+let rotationRampFrame = null;
+let flockHandle = null;
+
+function stopAutomaticRotation() {
+  if (rotationRampFrame !== null) {
+    cancelAnimationFrame(rotationRampFrame);
+    rotationRampFrame = null;
+  }
+
+  world.controls().autoRotate = false;
+}
+
+function handleUserInteraction() {
+  if (!hasUserInteracted) {
+    hasUserInteracted = true;
+    flockHandle?.cancel();
+  }
+
+  stopAutomaticRotation();
+}
+
+function maybeStartAutomaticRotation() {
+  if (
+    rotationStarted ||
+    !globeReady ||
+    !flockPassed ||
+    flockCancelled ||
+    reducedMotion ||
+    rotationSuppressed ||
+    hasUserInteracted
+  ) {
+    return;
+  }
+
+  rotationStarted = true;
+  const controls = world.controls();
+  const rampStart = performance.now();
+  const targetSpeed = 0.45;
+
+  controls.autoRotateSpeed = 0;
+  controls.autoRotate = true;
+
+  const ramp = timestamp => {
+    if (reducedMotion || rotationSuppressed || hasUserInteracted) {
+      controls.autoRotate = false;
+      rotationRampFrame = null;
+      return;
+    }
+
+    const progress = Math.min(
+      1,
+      (timestamp - rampStart) / FLOCK_CONFIG.rotationRampDuration
+    );
+    const easedProgress = 1 - Math.pow(1 - progress, 3);
+    controls.autoRotateSpeed = targetSpeed * easedProgress;
+
+    if (progress < 1) {
+      rotationRampFrame = requestAnimationFrame(ramp);
+    } else {
+      controls.autoRotateSpeed = targetSpeed;
+      rotationRampFrame = null;
+    }
+  };
+
+  rotationRampFrame = requestAnimationFrame(ramp);
+}
+
+function handleGlobeReady() {
+  globeReady = true;
+  maybeStartAutomaticRotation();
+}
+
+function handleMotionPreferenceChange(event) {
+  reducedMotion = event.matches;
+
+  if (reducedMotion) {
+    rotationSuppressed = true;
+    flockHandle?.cancel();
+    stopAutomaticRotation();
+  }
+}
 
 const world = Globe({
   rendererConfig: {
     alpha: true,
     antialias: true,
     powerPreference: "high-performance"
-  }
+  },
+  animateIn: false,
+  waitForGlobeReady: true
 })(earthEl)
   .globeImageUrl(globe_path)
   .backgroundColor("rgba(0, 0, 0, 0)")
@@ -45,7 +138,8 @@ const world = Globe({
   // softer atmosphere
   .showAtmosphere(true)
   .atmosphereColor("#9cc0b7")
-  .atmosphereAltitude(0.18);
+  .atmosphereAltitude(0.18)
+  .onGlobeReady(handleGlobeReady);
 
 function resizeGlobe() {
   const { width, height } = earthEl.getBoundingClientRect();
@@ -69,7 +163,7 @@ new ResizeObserver(() => {
 
 window.addEventListener("resize", resizeGlobe);
 
-world.controls().autoRotate = !prefersReducedMotion;
+world.controls().autoRotate = false;
 world.controls().autoRotateSpeed = 0.45;
 world.controls().maxDistance = 450;
 world.controls().minDistance = 90;
@@ -80,9 +174,35 @@ world.controls().rotateSpeed = 0.45;
 world.controls().zoomSpeed = 0.55;
 
 for (const event of events) {
-  window.addEventListener(event, () => {
-    world.controls().autoRotate = false;
+  window.addEventListener(event, handleUserInteraction, { passive: true });
+}
+
+if (typeof motionQuery.addEventListener === "function") {
+  motionQuery.addEventListener("change", handleMotionPreferenceChange);
+} else {
+  motionQuery.addListener(handleMotionPreferenceChange);
+}
+
+if (!initialReducedMotion) {
+  const flockController = new AbortController();
+  flockHandle = startFlockIntro({
+    signal: flockController.signal,
+    onPass: () => {
+      flockPassed = true;
+      maybeStartAutomaticRotation();
+    }
   });
+
+  flockHandle.promise.then(outcome => {
+    flockCancelled = outcome.status === "cancelled";
+    if (outcome.status === "failed") {
+      flockPassed = true;
+    }
+    flockHandle = null;
+    maybeStartAutomaticRotation();
+  });
+} else {
+  flockPassed = true;
 }
 
 Promise.all([
