@@ -6,7 +6,7 @@ export const FLOCK_CONFIG = Object.freeze({
   smallViewportMax: 760,
   duration: 5000 ,
   entryStagger: 0.06,
-  travelDurationRatioRange: [0.73, 0.8],
+  travelDurationRatioRange: [0.6, 1],
   progressVariation: 0.075,
   clusterProgressVariation: 0.045,
   clusterLateralVariation: 0.45,
@@ -14,11 +14,11 @@ export const FLOCK_CONFIG = Object.freeze({
   lateralAmplitudeRange: [5, 18],
   lateralFrequencyRange: [0.65, 1.15],
   formationSpread: 0.045,
-  alpha: 0.8,
-  rotationTriggerProgress: 0.5,
+  alpha: 0.5,
+  rotationTriggerProgress: 0.9,
   palette: ["#edf0e4", "#dbe5d8", "#b9d0c3", "#f3f1e3"],
   sizeRange: [2.4, 4.6],
-  wingbeatRange: [8, 15.5],
+  wingbeatRange: [4, 7],
   rotationRampDuration: 100,
   maxDevicePixelRatio: 2
 });
@@ -82,8 +82,7 @@ function traceCalidrisWing(context, side, flap, fold, bank) {
   context.restore();
 }
 
-function drawBird(context, bird, x, y, scale, angle, elapsed, flockAlpha) {
-  const seconds = elapsed * 0.001;
+function drawBird(context, bird, x, y, scale, angle, seconds, sharedBank, flockAlpha, devicePixelRatio) {
   const cycle = (seconds * bird.wingFrequency + bird.wingPhase / TAU) % 1;
 
   const downstroke = cycle < 0.44;
@@ -99,16 +98,16 @@ function drawBird(context, bird, x, y, scale, angle, elapsed, flockAlpha) {
   ? 0
   : Math.sin(Math.PI * stroke) ** 2;
 
-  const bank = 0.12 * Math.sin(seconds * 1.3)
+  const bank = sharedBank
     + 0.04 * Math.sin(bird.bankPhase + seconds * 0.8);
 
   const billTip = 1.02 + (bird.billLength ?? 0.7);
   const billDrop = bird.billDrop ?? 0.1;
 
-  context.save();
-  context.translate(x, y);
-  context.rotate(angle);
-  context.scale(scale, scale);
+  const pixelScale = scale * devicePixelRatio;
+  const cos = Math.cos(angle) * pixelScale;
+  const sin = Math.sin(angle) * pixelScale;
+  context.setTransform(cos, sin, -sin, cos, x * devicePixelRatio, y * devicePixelRatio);
   context.globalAlpha = bird.opacity * flockAlpha;
   context.fillStyle = bird.color;
   context.beginPath();
@@ -148,47 +147,24 @@ function drawBird(context, bird, x, y, scale, angle, elapsed, flockAlpha) {
   context.closePath();
 
   context.fill();
-  context.restore();
 }
 
 function routeAt(progress, width, height, route) {
   const t = clamp(progress, 0, 1);
-  const inverse = 1 - t;
-  const startX = -0.18 * width;
-  const startY = 1.16 * height;
-  const control1X = 0.1 * width;
-  const control1Y = 0.98 * height;
-  const control2X = 0.65 * width;
-  const control2Y = 0.2 * height;
-  const endX = 1.18 * width;
-  const endY = -0.18 * height;
-
-  route.x =
-    inverse * inverse * inverse * startX +
-    3 * inverse * inverse * t * control1X +
-    3 * inverse * t * t * control2X +
-    t * t * t * endX;
-  route.y =
-    inverse * inverse * inverse * startY +
-    3 * inverse * inverse * t * control1Y +
-    3 * inverse * t * t * control2Y +
-    t * t * t * endY;
-
-  route.dx =
-    3 * inverse * inverse * (control1X - startX) +
-    6 * inverse * t * (control2X - control1X) +
-    3 * t * t * (endX - control2X);
-  route.dy =
-    3 * inverse * inverse * (control1Y - startY) +
-    6 * inverse * t * (control2Y - control1Y) +
-    3 * t * t * (endY - control2Y);
+  // Cubic Bezier coefficients in Horner form; the route scales with the viewport.
+  route.x = ((-0.29 * t + 0.81) * t + 0.84) * t * width - 0.18 * width;
+  route.y = ((t - 1.8) * t - 0.54) * t * height + 1.16 * height;
+  route.dx = ((-0.87 * t + 1.62) * t + 0.84) * width;
+  route.dy = ((3 * t - 3.6) * t - 0.54) * height;
 }
 
-function drawFlock(context, birds, width, height, elapsed, route, formationSpread, flockAlpha) {
+function drawFlock(context, birds, width, height, elapsed, route, formationSpread, flockAlpha, devicePixelRatio) {
   context.clearRect(0, 0, width, height);
 
   const flockSpread = Math.min(width, height) * formationSpread;
   const visibilityMargin = 90;
+  const seconds = elapsed * 0.001;
+  const sharedBank = 0.12 * Math.sin(seconds * 1.3);
 
   for (const bird of birds) {
     const progress =
@@ -202,7 +178,7 @@ function drawFlock(context, birds, width, height, elapsed, route, formationSprea
     const lateral =
       bird.lateralOffset * flockSpread +
       Math.sin(
-        bird.phase + elapsed * 0.001 * bird.lateralFrequency
+        bird.phase + seconds * bird.lateralFrequency
       ) * bird.lateralAmplitude;
     const x = route.x - tangentY * lateral;
     const y = route.y + tangentX * lateral;
@@ -216,7 +192,7 @@ function drawFlock(context, birds, width, height, elapsed, route, formationSprea
       continue;
     }
 
-    const bank = Math.sin(bird.bankPhase + elapsed * 0.001 * bird.lateralFrequency) * 0.055;
+    const bank = Math.sin(bird.bankPhase + seconds * bird.lateralFrequency) * 0.055;
     drawBird(
       context,
       bird,
@@ -224,10 +200,15 @@ function drawFlock(context, birds, width, height, elapsed, route, formationSprea
       y,
       bird.size,
       Math.atan2(route.dy, route.dx) + bank,
-      elapsed,
-      flockAlpha
+      seconds,
+      sharedBank,
+      flockAlpha,
+      devicePixelRatio
     );
   }
+
+  context.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+  context.globalAlpha = 1;
 }
 
 /**
@@ -296,8 +277,10 @@ export function startFlockIntro({ signal, config = {}, onPass } = {}) {
     height = window.innerHeight;
     devicePixelRatio = Math.min(settings.maxDevicePixelRatio, window.devicePixelRatio || 1);
 
-    canvas.width = Math.max(1, Math.round(width * devicePixelRatio));
-    canvas.height = Math.max(1, Math.round(height * devicePixelRatio));
+    const pixelWidth = Math.max(1, Math.round(width * devicePixelRatio));
+    const pixelHeight = Math.max(1, Math.round(height * devicePixelRatio));
+    if (canvas.width !== pixelWidth) canvas.width = pixelWidth;
+    if (canvas.height !== pixelHeight) canvas.height = pixelHeight;
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
     context.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
@@ -331,7 +314,8 @@ export function startFlockIntro({ signal, config = {}, onPass } = {}) {
       elapsed,
       route,
       settings.formationSpread,
-      settings.alpha
+      settings.alpha,
+      devicePixelRatio
     );
 
     if (!passReported && elapsed / settings.duration >= settings.rotationTriggerProgress) {
