@@ -1,7 +1,7 @@
 // https://threejs.org/docs/#examples/en/controls/OrbitControls
 // https://github.com/vasturiano/globe.gl/issues/8
 
-import { FLOCK_CONFIG, startFlockIntro } from "./flock.js?v=2026-09-30";
+import { FLOCK_CONFIG, startFlockIntro } from "./flock.js?v=2026-10-02";
 
 const globe_path = "./CONTENT/main/basemap.png";
 const sites_path = "./CONTENT/data/study_sites.csv";
@@ -40,6 +40,9 @@ let rotationSuppressed = initialReducedMotion;
 let rotationStarted = false;
 let rotationRampFrame = null;
 let flockHandle = null;
+let pageLoaded = document.readyState === "complete";
+let sitesReady = false;
+let flockScheduled = false;
 
 function stopAutomaticRotation() {
   if (rotationRampFrame !== null) {
@@ -107,6 +110,7 @@ function maybeStartAutomaticRotation() {
 
 function handleGlobeReady() {
   globeReady = true;
+  maybeStartFlockIntro();
   maybeStartAutomaticRotation();
 }
 
@@ -183,26 +187,39 @@ if (typeof motionQuery.addEventListener === "function") {
   motionQuery.addListener(handleMotionPreferenceChange);
 }
 
-if (!initialReducedMotion) {
-  const flockController = new AbortController();
-  flockHandle = startFlockIntro({
-    signal: flockController.signal,
-    onPass: () => {
-      flockPassed = true;
-      maybeStartAutomaticRotation();
-    }
-  });
+function maybeStartFlockIntro() {
+  if (flockScheduled || reducedMotion || hasUserInteracted || !pageLoaded || !globeReady || !sitesReady) {
+    return;
+  }
 
-  flockHandle.promise.then(outcome => {
-    flockCancelled = outcome.status === "cancelled";
-    if (outcome.status === "failed") {
-      flockPassed = true;
-    }
-    flockHandle = null;
-    maybeStartAutomaticRotation();
-  });
-} else {
-  flockPassed = true;
+  flockScheduled = true;
+  // Let the globe render its texture and labels before starting the overlay.
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    if (reducedMotion || hasUserInteracted) return;
+
+    flockHandle = startFlockIntro({
+      onPass: () => {
+        flockPassed = true;
+        maybeStartAutomaticRotation();
+      }
+    });
+
+    flockHandle.promise.then(outcome => {
+      flockCancelled = outcome.status === "cancelled";
+      if (outcome.status === "failed") {
+        flockPassed = true;
+      }
+      flockHandle = null;
+      maybeStartAutomaticRotation();
+    });
+  }));
+}
+
+if (!pageLoaded) {
+  window.addEventListener("load", () => {
+    pageLoaded = true;
+    maybeStartFlockIntro();
+  }, { once: true });
 }
 
 Promise.all([
@@ -273,4 +290,7 @@ Promise.all([
         });
       });
     });
+
+  sitesReady = true;
+  maybeStartFlockIntro();
 });
